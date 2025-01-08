@@ -5,16 +5,17 @@ class Solution {
         int nonOverlappingCount = 0;
         int lastEnd = Integer.MIN_VALUE;
 
-        for (int i = 0; i < n; i++) {
-            // Check if the current interval overlaps with the last non-overlapping interval
-            if (intervals[i][0] >= lastEnd) {
-                // No overlap; update the end time of the last interval
-                lastEnd = intervals[i][1];
-            } else {
-                // Overlap detected; increment count of intervals to remove
-                nonOverlappingCount++;
-            }
-        }
+       for(int i=0;i<n;i++)
+       {
+         if(intervals[i][0]>=lastEnd)
+         {
+            lastEnd=intervals[i][1];
+         }
+         else
+         {
+            nonOverlappingCount++;
+         }
+       }
 
         return nonOverlappingCount;
     }
