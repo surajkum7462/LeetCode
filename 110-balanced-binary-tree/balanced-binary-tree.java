@@ -14,28 +14,30 @@
  * }
  */
 class Solution {
-    public int maxDepth(TreeNode root) {
+   boolean balanceFactor = true;
+    public int height(TreeNode root)
+    {
+       
         if(root==null)
         {
             return 0;
         }
-        int lh=maxDepth(root.left);
-        if(lh==-1)
+        int lh=height(root.left);
+        int rh=height(root.right);
+        if(Math.abs(lh-rh)>1)
         {
-            return -1;
+            balanceFactor=false;
         }
-        int rh=maxDepth(root.right);
-       if(rh==-1)
-       {
-        return -1;
-       }
-       if(Math.abs(lh-rh)>1)
-       {
-        return -1;
-       }
-        return 1+Math.max(lh,rh);
+        return Math.max(lh,rh)+1;
     }
     public boolean isBalanced(TreeNode root) {
-        return maxDepth(root)!=-1;
+        int h=height(root);
+        if(root==null)
+        {
+            return true;
+        }
+       return balanceFactor;
+
+    
     }
 }
