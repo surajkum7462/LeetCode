@@ -30,31 +30,58 @@ class Solution {
 
 
         // Iterative Approach
-        List<Integer> list = new ArrayList<>();
-        Stack<TreeNode> st1 = new Stack<>();
-        Stack<TreeNode> st2 = new Stack<>();
-        if(root==null)
-        {
-            return list;
-        }
-        st1.push(root);
-        while(!st1.isEmpty())
-        {
-            TreeNode temp =st1.pop();
-            st2.push(temp);
-            if(temp.left!=null)
-            {
-                st1.push(temp.left);
+        // List<Integer> list = new ArrayList<>();
+        // Stack<TreeNode> st1 = new Stack<>();
+        // Stack<TreeNode> st2 = new Stack<>();
+        // if(root==null)
+        // {
+        //     return list;
+        // }
+        // st1.push(root);
+        // while(!st1.isEmpty())
+        // {
+        //     TreeNode temp =st1.pop();
+        //     st2.push(temp);
+        //     if(temp.left!=null)
+        //     {
+        //         st1.push(temp.left);
 
-            }
-            if(temp.right!=null)
-            {
-                st1.push(temp.right);
-            }
-        }
-        while(!st2.isEmpty())
+        //     }
+        //     if(temp.right!=null)
+        //     {
+        //         st1.push(temp.right);
+        //     }
+        // }
+        // while(!st2.isEmpty())
+        // {
+        //     list.add(st2.pop().val);
+        // }
+        // return list;
+
+        // USing 1 Stack
+
+        List<Integer> list = new ArrayList<>();
+        Stack<TreeNode> st =new Stack<>();
+        TreeNode lastVisited=null;
+        TreeNode current=root;
+        while(current!=null || !st.isEmpty())
         {
-            list.add(st2.pop().val);
+            while(current!=null)
+            {
+                st.push(current);
+                current=current.left;
+            }
+            current=st.peek();
+             if (current.right != null && current.right != lastVisited) {
+                current = current.right;
+             }
+            else
+            {
+                list.add(current.val);
+                st.pop();
+                lastVisited=current;
+                current=null;
+            }
         }
         return list;
     }
