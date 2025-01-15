@@ -5,19 +5,18 @@ class Solution {
             return "1";
         }
         String say = countAndSay(n-1);
-        String result="";
-        
-        for(int i=0;i<say.length();i++){
-            char ch = say.charAt(i);
-            int cnt=1;
-        while(i<say.length()-1 && say.charAt(i)==say.charAt(i+1))
-        {
-            cnt++;
-            i++;
+      
+        StringBuilder result = new StringBuilder();
 
+        for (int i = 0; i < say.length(); i++) {
+            char ch = say.charAt(i);
+            int cnt = 1;
+            while (i < say.length() - 1 && say.charAt(i) == say.charAt(i + 1)) {
+                cnt++;
+                i++;
+            }
+            result.append(cnt).append(ch);
         }
-        result+=Integer.toString(cnt)+Character.toString(ch);
-        }
-        return result;
+        return result.toString();
     }
 }
