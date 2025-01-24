@@ -7,14 +7,14 @@ class Solution {
         {
             map.put(x,map.getOrDefault(x,0)+1);
         }
-        int max=0;
+       
        for(Map.Entry<Integer, Integer> entry : map.entrySet())
        {
            if(entry.getValue()>k)
            {
-             max=entry.getKey();
+            return entry.getKey();
            }
        }
-        return max;
+        return -1;
     }
 }
