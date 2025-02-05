@@ -1,51 +1,55 @@
 class Solution {
     public int[] searchRange(int[] nums, int target) {
-      
-        int[] ans = new int[2];
-        ans[0] = findFirst(nums, target);
-        ans[1] = findLast(nums, target);
+
+       int[] ans = new int[2];
+       ans[0]=-1;
+       ans[1]=-1;
+       int n=nums.length;
+       int l=0;
+       int r=n-1;
+       while(l<=r)
+       {
+         int mid=(l+r)/2;
+          if(nums[mid]==target)
+          {
+            ans[0]=mid;
+             r=mid-1;
+          }
+          else if(nums[mid]<target)
+          {
+            l=mid+1;
+
+          }
+          else
+          {
+            r=mid-1;
+
+          }
+       }
+       if(ans[0]==-1)
+       {
         return ans;
-    }
+       }
+         l=0;
+         r=n-1;
+        while(l<=r)
+        {
+            int mid=(l+r)/2;
+            if(nums[mid]==target)
+            {
+                ans[1]=mid;
+                l=mid+1;
 
-    private int findFirst(int[] nums, int target) {
-        int l = 0, r = nums.length - 1;
-        int ans = -1;
-
-        while (l <= r) {
-            int mid = l + (r - l) / 2;
-
-            if (nums[mid] == target) {
-                ans = mid; // Update the result
-                r = mid - 1; // Search in the left half
-            } else if (nums[mid] < target) {
-                l = mid + 1;
-            } else {
-                r = mid - 1;
+            }
+            else if(nums[mid]<target)
+            {
+                l=mid+1;
+            }
+            else
+            {
+                r=mid-1;
             }
         }
-
-        return ans;
+    return ans;
     }
-
-    private int findLast(int[] nums, int target) {
-        int l = 0, r = nums.length - 1;
-        int ans = -1;
-
-        while (l <= r) {
-            int mid = l + (r - l) / 2;
-
-            if (nums[mid] == target) {
-                ans = mid; // Update the result
-                l = mid + 1; // Search in the right half
-            } else if (nums[mid] < target) {
-                l = mid + 1;
-            } else {
-                r = mid - 1;
-            }
-        }
-
-        return ans;
-        
-    }
-    
 }
