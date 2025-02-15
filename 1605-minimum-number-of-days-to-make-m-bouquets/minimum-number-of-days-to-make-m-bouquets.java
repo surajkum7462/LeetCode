@@ -1,45 +1,27 @@
 class Solution {
-    public int minDays(int[] bloomDay, int m, int k) {
-
-        long val=(long) m*k;
-        int n=bloomDay.length;
-        int ans=-1;
-        if(val>n)
-        {
-            return -1;
-
-        }
-
-        int min=Integer.MAX_VALUE;
-        int max=Integer.MIN_VALUE;
-        for(int i=0;i<n;i++)
-        {
-            min=Math.min(min,bloomDay[i]);
-            max=Math.max(max,bloomDay[i]);
-        }
-        int l=min;
-        int r=max;
-        while(l<=r)
-        {
-            int mid=(l+r)/2;
-            if(possible(bloomDay,mid,m,k)==true)
-            {
-                ans=mid;
-                r=mid-1;
-            }
-            else
-            {
-                l=mid+1;
-            }
-        }
-        return ans;
-    }
-    private boolean possible(int[] arr,int day,int m,int k)
+    public int min(int arr[])
     {
-        int n=arr.length;
+        int min=Integer.MAX_VALUE;
+        for(int i=0;i<arr.length;i++)
+        {
+            min=Math.min(arr[i],min);
+        }
+        return min;
+    }
+     public int max(int arr[])
+    {
+        int min=Integer.MIN_VALUE;
+        for(int i=0;i<arr.length;i++)
+        {
+            min=Math.max(arr[i],min);
+        }
+        return min;
+    }
+    public boolean possible(int[] arr,int day,int m,int k)
+    {
         int cnt=0;
-        int noOfB=0;
-        for(int i=0;i<n;i++)
+        int noOfBucket=0;
+        for(int i=0;i<arr.length;i++)
         {
             if(arr[i]<=day)
             {
@@ -47,11 +29,36 @@ class Solution {
             }
             else
             {
-                noOfB+=(cnt/k);
+                noOfBucket+=cnt/k;
                 cnt=0;
             }
         }
-        noOfB+=(cnt/k);
-        return noOfB>=m;
+        noOfBucket+=cnt/k;
+        return noOfBucket>=m;
+    }
+    public int minDays(int[] bloomDay, int m, int k) {
+        int low = min(bloomDay);
+        int high=max(bloomDay);
+        int n=bloomDay.length;
+        long val=(long)m*k;
+        int ans=high;
+        if(n<val)
+        {
+            return -1;
+        }
+        while(low<=high)
+        {
+            int mid=(low+high)/2;
+            if(possible(bloomDay,mid,m,k)==true)
+            {
+                ans=mid;
+                high=mid-1;
+            }
+            else
+            {
+                low=mid+1;
+            }
+        }
+        return low;
     }
 }
