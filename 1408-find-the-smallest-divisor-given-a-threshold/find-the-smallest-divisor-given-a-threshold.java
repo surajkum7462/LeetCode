@@ -1,40 +1,41 @@
 class Solution {
-    public int smallestDivisor(int[] nums, int threshold) {
-        int l=1;
-        int r=max(nums);
-
-        while(l<=r)
+    
+     public int max(int arr[])
+    {
+        int min=Integer.MIN_VALUE;
+        for(int i=0;i<arr.length;i++)
         {
-            int mid=(l+r)/2;
-            if(sumOfD(nums,mid)<=threshold)
+            min=Math.max(arr[i],min);
+        }
+        return min;
+    }
+    public int findCeil(int[] arr,int val)
+    {
+        int ans=0;
+        for(int i=0;i<arr.length;i++)
+        {
+             ans+=Math.ceil((double)arr[i]/(double)val);
+           
+        }
+        return ans;
+    }
+    public int smallestDivisor(int[] nums, int threshold) {
+        int low=1;
+        int high=max(nums);
+        while(low<=high)
+        {
+            int mid=(low+high)/2;
+            int result=findCeil(nums,mid);
+            if(result<=threshold)
             {
-                r=mid-1;
+                high=mid-1;
             }
             else
             {
-                l=mid+1;
+                low=mid+1;
             }
         }
-        return l;
+return low;
         
-    }
-    private int max(int[] arr)
-    {
-        int maxi=Integer.MIN_VALUE;
-        for(int i=0;i<arr.length;i++)
-        {
-            maxi=Math.max(maxi,arr[i]);
-        }
-        return maxi;
-    }
-    private int sumOfD(int[] arr,int mid)
-    {
-        int n=arr.length;
-        int sum=0;
-        for(int i=0;i<n;i++)
-        {
-          sum+=Math.ceil((double)(arr[i])/(double)mid);
-        }
-        return sum;
     }
 }
