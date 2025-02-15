@@ -1,34 +1,31 @@
 class Solution {
-
-    public int shipWithinDays(int[] weights, int days) {
-
-        int l=max(weights);
-        int r=sum(weights);
-
-        while(l<=r)
-        {
-            int mid=(l+r)/2;
-            int cap=dayReq(weights,mid);
-            if(cap<=days)
-            {
-                r=mid-1;
-            }
-            else
-            {
-                l=mid+1;
-            }
-        }
-        return l;
-    }
-    private int dayReq(int[] arr,int cap)
+    public int max(int[] arr)
     {
-        int days=1;
-      int  load=0;
+        int max=Integer.MIN_VALUE;
         for(int i=0;i<arr.length;i++)
         {
-            if(arr[i]+load>cap)
+            max=Math.max(arr[i],max);
+        }
+        return max;
+    }
+    public int sum(int arr[])
+    {
+        int ans=0;
+        for(int i=0;i<arr.length;i++)
+        {
+            ans+=arr[i];
+        }
+        return ans;
+    }
+    public int possible(int arr[] , int cap)
+    {
+        int days=1;
+        int load=0;
+        for(int i=0;i<arr.length;i++)
+        {
+            if(load+arr[i]>cap)
             {
-                days=days+1;
+                days++;
                 load=arr[i];
             }
             else
@@ -38,23 +35,23 @@ class Solution {
         }
         return days;
     }
-    private int max(int[] arr)
-    {
-        int max=Integer.MIN_VALUE;
-        for(int i=0;i<arr.length;i++)
+    public int shipWithinDays(int[] weights, int days) {
+        int low=max(weights);
+        int high = sum(weights);
+        while(low<=high)
         {
-            max=Math.max(max,arr[i]);
-        }
-        return max;
-    }
-    private int sum(int[] arr)
-    {
-        int sum=0;
-        for(int i=0;i<arr.length;i++)
-        {
-            sum+=arr[i];
-        }
-        return sum;
-    }
+            int mid=(low+high)/2;
+            int dayRe=possible(weights,mid);
+            if(dayRe<=days)
+            {
+                high=mid-1;
 
+            }
+            else
+            {
+                low=mid+1;
+            }
+        }
+        return low;
+    }
 }
