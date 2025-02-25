@@ -1,31 +1,32 @@
 class Solution {
     public int beautySum(String s) {
         int sum=0;
-        int n=s.length();
-        for(int i=0;i<n;i++)
+        for(int i=0;i<s.length();i++)
         {
-            int[] freq=new int[26];
-            for(int j=i;j<n;j++)
+            int[] freq = new int[26];
+            for(int j=i;j<s.length();j++)
             {
-                freq[s.charAt(j)-'a']++;
-                int beauty=getMaxCount(freq)-getMinCount(freq);
-                sum+=beauty;
+               freq[s.charAt(j)-'a']++;
+               int beauty=getMax(freq)-getMin(freq);
+               sum+=beauty;
             }
         }
         return sum;
     }
-    public int getMaxCount(int[] arr)
+
+    public int getMax(int[] freq)
     {
-        int max=0;
-        for(int i=0;i<arr.length;i++)
+        int max=Integer.MIN_VALUE;
+        for(int i=0;i<freq.length;i++)
         {
-            max=Math.max(max,arr[i]);
+            max=Math.max(max,freq[i]);
         }
         return max;
     }
-    public int getMinCount(int[] arr)
+
+    public int getMin(int[] arr)
     {
-        int min=Integer.MAX_VALUE;
+        int min = Integer.MAX_VALUE;
         for(int i=0;i<arr.length;i++)
         {
             if(arr[i]!=0)
