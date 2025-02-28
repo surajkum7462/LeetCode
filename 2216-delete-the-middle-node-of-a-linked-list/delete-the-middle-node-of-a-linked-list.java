@@ -14,32 +14,18 @@ class Solution {
         {
             return null;
         }
-        int len = findLen(head);
-        int mid = len/2;
-        ListNode curr = head;
-        ListNode prev = null;
-        int i=0;
-        while(i<mid)
-        {
-            prev=curr;
-
-            curr=curr.next;
-
-            i++;
-        }
-         prev.next=curr.next;
+       
+       ListNode slow = head;
+       ListNode fast = head;
+       fast=head.next.next;
+       while(fast!=null && fast.next!=null){
+        slow=slow.next;
+        fast=fast.next.next;
+       }
+       if(slow.next!=null)
+       {
+         slow.next=slow.next.next;
+       }
        return head;
-    }
-
-     public int findLen(ListNode head)
-    {
-        ListNode curr = head;
-        int len =0;
-        while(curr!=null)
-        {
-            len++;
-            curr=curr.next;
-        }
-        return len;
     }
 }
