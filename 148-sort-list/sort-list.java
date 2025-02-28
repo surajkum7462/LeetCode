@@ -14,35 +14,20 @@ class Solution {
         {
             return head;
         }
-
-        ListNode middle=findMiddle(head);
-        ListNode right=middle.next;
-         middle.next=null;
-        ListNode left=head;
-       
+        ListNode middle = findMiddle(head);
+        ListNode right = middle.next;
+        middle.next = null;
+        ListNode left = head;
+       right= sortList(right);
         left=sortList(left);
-        right=sortList(right);
-        return mergeTwoList(left,right);
         
+        return merge(left,right);
     }
-    public ListNode findMiddle(ListNode head)
-    {
-        ListNode fstptr=head;
-        ListNode slwptr=head;
-          ListNode prev = null;
-        while(fstptr!=null && fstptr.next!=null)
-        {
-            prev=slwptr;
-            slwptr=slwptr.next;
-            fstptr=fstptr.next.next;
-        }
-        return prev;
-    }
-    public ListNode mergeTwoList(ListNode l1 , ListNode l2)
-    {
-        ListNode dummy = new ListNode(0);
-        ListNode temp=dummy;
 
+    public ListNode merge(ListNode l1 , ListNode l2)
+    {
+        ListNode dummy=  new ListNode(0);
+        ListNode temp = dummy;
         while(l1!=null && l2!=null)
         {
             if(l1.val<=l2.val)
@@ -66,5 +51,20 @@ class Solution {
             temp.next=l2;
         }
         return dummy.next;
+    }
+
+    public ListNode findMiddle(ListNode head)
+    {
+        ListNode fast = head;
+        ListNode slow = head;
+        ListNode prev = null;
+
+        while(fast!=null && fast.next!=null)
+        {
+            prev=slow;
+            fast = fast.next.next;
+            slow=slow.next;
+        }
+        return prev;
     }
 }
