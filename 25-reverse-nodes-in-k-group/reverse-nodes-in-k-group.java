@@ -9,60 +9,61 @@
  * }
  */
 class Solution {
-    public ListNode reverseKGroup(ListNode head, int k) {
-
-       ListNode temp=head;
-       ListNode prevLast=null;
-       while(temp!=null)
-       {
-         ListNode KthNode=findKthNode(temp,k);
-         if(KthNode==null)
-         {
-            if(prevLast!=null)
-            {
-                prevLast.next=temp;
-            }
-            break;
-         }
-         ListNode nextNode=KthNode.next;
-         KthNode.next=null;
-         reverse(temp);
-         if(temp==head)
-         {
-            head=KthNode;
-         }
-         else
-         {
-            prevLast.next=KthNode;
-         }
-         prevLast=temp;
-         temp=nextNode;
-       }
-       return head;
-        
-    }
-    public ListNode findKthNode(ListNode temp,int k)
+    public ListNode findKthNode(ListNode curr , int k)
     {
         k=k-1;
-        while(temp!=null && k>0)
+        while(curr!=null && k>0)
         {
             k--;
-            temp=temp.next;
+            curr=curr.next;
         }
-        return temp;
+        return curr;
     }
-    public ListNode reverse(ListNode head)
+    public void reverse(ListNode head)
     {
-        ListNode curr=head;
-        ListNode prev=null;
-
+        ListNode curr = head;
+        ListNode prev = null;
         while(curr!=null)
         {
-            ListNode temp=curr.next;
-            curr.next=prev;
+            ListNode next = curr.next;
+            curr.next = prev;
             prev=curr;
-            curr=temp;
+            curr=next;
+
         }
-        return prev;
+       
+    }
+    public ListNode reverseKGroup(ListNode head, int k) {
+
+        ListNode temp = head;
+        ListNode prevNode = null;
+        while(temp!=null)
+        {
+            ListNode KthNode = findKthNode(temp,k);
+            if(KthNode==null)
+            {
+              
+              if(prevNode!=null)
+              {
+                 prevNode.next = temp;
+              }
+
+                break;
+            }
+            ListNode nextNode = KthNode.next;
+            KthNode.next = null;
+            reverse(temp);
+            if(temp==head)
+            {
+                head = KthNode;
+            }
+            else
+            {
+                prevNode.next = KthNode;
+            }
+            prevNode=temp;
+            temp=nextNode;
+        }
+        return head;
     }
 }
