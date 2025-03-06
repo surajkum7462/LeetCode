@@ -3,26 +3,24 @@ class Solution {
 
         List<String> ans = new ArrayList<>();
 
-        solve("",0,0,n,ans);
-
+        solve(n,"",0,0,ans);
         return ans;
         
     }
-
-    public void solve(String curr,int open,int close ,int n,List<String> ans)
+    public void solve(int n , String curr , int open , int close , List<String> ans)
     {
-        if(curr.length()==2*n)
+        if(curr.length()==n*2)
         {
             ans.add(curr);
             return;
         }
         if(open<n)
         {
-            solve(curr+"(",open+1,close,n,ans);
+            solve(n,curr+"(",open+1,close,ans);
         }
         if(open>close)
         {
-            solve(curr+")",open,close+1,n,ans);
+            solve(n,curr+")",open,close+1,ans);
         }
     }
 }
