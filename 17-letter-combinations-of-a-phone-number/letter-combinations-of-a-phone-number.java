@@ -1,39 +1,39 @@
 class Solution {
-   public void backtrack(String digits, int index, StringBuilder current, List<String> combinations, String[] mapping) {
-        if (index == digits.length()) {
-            combinations.add(current.toString());
+    public void helperCombine(int indx , String digits , StringBuilder sb , List<String> ans,String[] map)
+    {
+        if(indx==digits.length())
+        {
+            ans.add(sb.toString());
             return;
         }
-
-        String letters = mapping[digits.charAt(index) - '0'];
-        for (char c : letters.toCharArray()) {
-            current.append(c);
-            backtrack(digits, index + 1, current, combinations, mapping);
-            current.deleteCharAt(current.length() - 1);
+        String letters = map[digits.charAt(indx)-'0'];//2->"abc";again "cde"
+        for(char c:letters.toCharArray())
+        {
+            sb.append(c);
+            helperCombine(indx+1,digits,sb,ans,map);
+            sb.deleteCharAt(sb.length()-1);
         }
     }
-
     public List<String> letterCombinations(String digits) {
-        List<String> combinations = new ArrayList<>();
-        if (digits.isEmpty()) {
-            return combinations;
+        List<String> ans = new ArrayList<>();
+        if(digits.isEmpty())
+        {
+            return ans;
         }
+        String[] mapping ={
 
-        String[] mapping = {
-            "",     // 0
-            "",     // 1
-            "abc",  // 2
-            "def",  // 3
-            "ghi",  // 4
-            "jkl",  // 5
-            "mno",  // 6
-            "pqrs", // 7
-            "tuv",  // 8
-            "wxyz"  // 9
+                       "",
+                       "",
+                       "abc",
+                       "def",
+                       "ghi",
+                       "jkl",
+                       "mno",
+                       "pqrs",
+                       "tuv",
+                       "wxyz"
         };
-
-        backtrack(digits, 0, new StringBuilder(), combinations, mapping);
-        return combinations;
-        
+        helperCombine(0,digits,new StringBuilder(),ans,mapping);
+        return ans;
     }
 }
