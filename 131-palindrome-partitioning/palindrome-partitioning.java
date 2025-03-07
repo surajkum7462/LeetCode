@@ -1,33 +1,29 @@
 class Solution {
     public List<List<String>> partition(String s) {
-
         List<List<String>> ans = new ArrayList<>();
+        List<String> temp = new ArrayList<>();
 
-        List<String> path = new ArrayList<>();
-
-        partioning(0,s,path,ans);
-
+        func(0,s,ans,temp);
         return ans;
         
     }
-
-    public void partioning(int indx , String s ,List<String> path , List<List<String>> ans)
+    public void func(int indx,String s,List<List<String>> ans , List<String> temp)
     {
         if(indx==s.length())
         {
-            ans.add(new ArrayList<>(path));
+            ans.add(new ArrayList<>(temp));
             return;
         }
+       for(int i=indx;i<s.length();i++)
+       {
+         if(palindrome(s,indx,i))
+         {
+            temp.add(s.substring(indx,i+1));
+            func(i+1,s,ans,temp);
+               temp.remove(temp.size()-1);
+         }
+       }
 
-        for(int i=indx;i<s.length();i++)
-        {
-            if(palindrome(s,indx,i))
-            {
-               path.add(s.substring(indx,i+1));
-               partioning(i+1,s,path,ans);
-               path.remove(path.size()-1);
-            }
-        }
     }
     public boolean palindrome(String s , int start , int end)
     {
