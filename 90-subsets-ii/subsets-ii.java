@@ -1,23 +1,25 @@
 class Solution {
-     public static void fun(int[] nums, int index, List<Integer> ds, Set<List<Integer>> res) {
-        if (index == nums.length) {
-            res.add(new ArrayList<>(ds));
+    public List<List<Integer>> subsetsWithDup(int[] nums) {
+        Arrays.sort(nums);
+        Set<List<Integer>> ans = new HashSet<>();
+        List<Integer> temp = new ArrayList<>();
+        int n=nums.length;
+        helpSubset(0,n,nums,ans,temp);
+       List<List<Integer>> answ = new ArrayList<>(ans);
+        return answ;
+        
+    }
+    public void helpSubset(int i , int n , int[] arr , Set<List<Integer>> ans , List<Integer> temp)
+    {
+        if(i==n)
+        {
+            
+            ans.add(new ArrayList<>(temp));
             return;
         }
-        ds.add(nums[index]);
-        fun(nums, index + 1, ds, res); // Include nums[index]
-        ds.remove(ds.size() - 1);
-        fun(nums, index + 1, ds, res); // Exclude nums[index]
+        temp.add(arr[i]);
+        helpSubset(i+1,n,arr,ans,temp);
+        temp.remove(temp.size()-1);
+        helpSubset(i+1,n,arr,ans,temp);
     }
-
-    public static List<List<Integer>> subsetsWithDup(int[] nums) {
-        Arrays.sort(nums); // Sort to handle duplicates
-        Set<List<Integer>> res = new HashSet<>();
-        List<Integer> ds = new ArrayList<>();
-        fun(nums, 0, ds, res);
-        return new ArrayList<>(res); // Convert to List
-    }
-
-        
-    
 }
