@@ -6,15 +6,13 @@ class Solution {
         for(int num:nums)
         {
             map.put(num,map.getOrDefault(num,0)+1);
-        }
-        int ele=0;
-        for(Map.Entry<Integer,Integer> entry : map.entrySet())
-        {
-            if(entry.getValue()>major)
+
+            if(map.get(num)>major)
             {
-                ele=entry.getKey();
+                return num;
             }
         }
-        return ele;
+        
+        return -1;
     }
 }
