@@ -1,22 +1,24 @@
 class Solution {
     public List<Integer> majorityElement(int[] nums) {
-        List<Integer> ans = new ArrayList<>();
+
+        Map<Integer,Integer>  map = new HashMap<>();
         int n=nums.length;
-        Map<Integer,Integer> map = new HashMap<>();
-        for(int k:nums)
+        List<Integer> ans = new ArrayList<>();
+        for(int num:nums)
         {
-            map.put(k,map.getOrDefault(k,0)+1);
+            map.put(num,map.getOrDefault(num,0)+1);
         }
 
-        for(Map.Entry<Integer,Integer> entry:map.entrySet())
+        for(Map.Entry<Integer,Integer> entry : map.entrySet())
         {
-           int key = entry.getKey();
-           int value=entry.getValue();
-           if(value>(n/3))
-           {
-             ans.add(key);
-           }
+            int value=entry.getValue();
+            int key= entry.getKey();
+            if(value>n/3)
+            {
+                ans.add(key);
+            }
         }
         return ans;
+       
     }
 }
