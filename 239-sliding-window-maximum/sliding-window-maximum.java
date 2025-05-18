@@ -1,35 +1,33 @@
 class Solution {
     public int[] maxSlidingWindow(int[] nums, int k) {
-         if (nums == null || nums.length == 0 || k == 0) {
-            return new int[0];
-        }
 
-        int n = nums.length;
-        int[] result = new int[n - k + 1];
-        Deque<Integer> deque = new ArrayDeque<>();
+       if(nums==null || nums.length==0 || k==0)
+       {
+         return new int[0];
+       }
 
-        for (int i = 0; i < n; i++) {
-            // Remove indices that are out of the bounds of the sliding window
-            if (!deque.isEmpty() && deque.peekFirst() < i - k + 1) {
-                deque.pollFirst();
-            }
+       int n=nums.length;
+       int[] result = new int[n-k+1];
+       Deque<Integer> dq  = new ArrayDeque<>();
 
-            // Remove indices of elements smaller than the current element
-            // as they cannot be the maximum in the sliding window
-            while (!deque.isEmpty() && nums[deque.peekLast()] < nums[i]) {
-                deque.pollLast();
-            }
+       for(int i=0;i<n;i++)
+       {
+         if(!dq.isEmpty() && dq.peekFirst()<i-k+1)
+         {
+            dq.pollFirst();
+         }
 
-            // Add the current element's index
-            deque.offerLast(i);
+         while(!dq.isEmpty() && nums[dq.peekLast()]<nums[i])
+         {
+            dq.pollLast();
+         }
 
-            // The first element of the deque is the index of the maximum element
-            // for the current sliding window
-            if (i >= k - 1) {
-                result[i - k + 1] = nums[deque.peekFirst()];
-            }
-        }
-
+         dq.offerLast(i);
+         if(i>=k-1)
+         {
+            result[i-k+1]=nums[dq.peekFirst()];
+         }
+       }
         return result;
     }
 }
