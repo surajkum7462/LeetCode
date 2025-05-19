@@ -1,15 +1,13 @@
 class Solution {
-    public int strStr(String text, String pat) {
-        int cnt=0;
-        for(int i=0;i<=text.length()-pat.length();i++)
+    public int strStr(String haystack, String needle) {
+
+        int m=haystack.length();
+        int n=needle.length();
+        for(int i=0;i<=m-n;i++)
         {
-            
-            int j=0;
-            while(j<pat.length() && text.charAt(i+j)==pat.charAt(j))
+            String sub = haystack.substring(i,i+n);
+            if(sub.equals(needle))
             {
-                j++;
-            }
-              if (j == pat.length()) {
                 return i;
             }
         }
