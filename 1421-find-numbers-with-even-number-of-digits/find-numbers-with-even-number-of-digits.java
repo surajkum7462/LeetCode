@@ -4,17 +4,11 @@ class Solution {
         for(int num:nums)
         {
            
-           if(num>=10 && num<100)
-            {
-                cnt++;
-            }
-            else if(num>=1000 && num<10000)
-            {
-                cnt++;
-            }
-            else if(num==100000){
-                cnt=1;
-            }
+           int digit=(int) Math.log10(num)+1;
+           if(digit%2==0)
+           {
+             cnt++;
+           }
             
         }
         return cnt;
