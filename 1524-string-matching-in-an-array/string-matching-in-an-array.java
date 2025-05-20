@@ -1,21 +1,21 @@
 class Solution {
     public List<String> stringMatching(String[] words) {
 
-        Set<String> ans = new HashSet<>();
-        Arrays.sort(words,(a,b) -> Integer.compare(a.length(),b.length()));
+        List<String> ans = new ArrayList<>();
+        
         for(int i=0;i<words.length;i++)
         {
-            String str = words[i];
-            for(int j=i+1;j<words.length;j++)
+            String words1 = words[i];
+            for(int j=0;j<words.length;j++)
             {
-               String mainStr = words[j];
-               if(mainStr.contains(str))
+               
+               if(i!=j && words[j].contains(words1))
                {
-                 ans.add(str);
-                 continue;
+                 ans.add(words1);
+                 break;
                }
             }
         }
-        return new ArrayList<>(ans);
+        return ans;
     }
 }
