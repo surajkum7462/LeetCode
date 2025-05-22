@@ -1,14 +1,15 @@
 class Solution {
     public boolean isIsomorphic(String s, String t) {
+        Map<Character,Character> map = new HashMap<>();
         if(s.length()!=t.length())
         {
             return false;
         }
-        Map<Character,Character> map = new HashMap<>();
+
         for(int i=0;i<s.length();i++)
         {
             char original = s.charAt(i);
-            char replace = t.charAt(i);
+            char replace= t.charAt(i);
             if(!map.containsKey(original))
             {
                 if(!map.containsValue(replace))
@@ -22,8 +23,8 @@ class Solution {
             }
             else
             {
-                char mapped = map.get(original);
-                if(mapped!=replace)
+                char ch = map.get(original);
+                if(ch!=replace)
                 {
                     return false;
                 }
