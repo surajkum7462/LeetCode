@@ -1,26 +1,23 @@
 class Solution {
     public String frequencySort(String s) {
-
-       Map<Character,Integer> map = new HashMap<>();
-
-       StringBuilder sb = new StringBuilder();
+       StringBuilder sb  = new StringBuilder();
+       TreeMap<Character,Integer> map  = new TreeMap<>(Collections.reverseOrder());
        for(int i=0;i<s.length();i++)
        {
-           char ch = s.charAt(i);
-           map.put(ch,map.getOrDefault(ch,0)+1);
+         char ch = s.charAt(i);
+         map.put(ch,map.getOrDefault(ch,0)+1);
        }
-
-       List<Character> list = new ArrayList<>(map.keySet());
-       list.sort((a,b)->map.get(b)-map.get(a));
-       for(char ch:list)
+       List<Map.Entry<Character,Integer>> list = new ArrayList<>(map.entrySet());
+       list.sort((a,b) -> b.getValue()-a.getValue());
+       for(Map.Entry<Character,Integer> entry:list)
        {
-         int freq=map.get(ch);
-         for(int i=0;i<freq;i++)
-         {
+          char ch = entry.getKey();
+          int n=entry.getValue();
+          for(int i=0;i<n;i++)
+          {
             sb.append(ch);
-         }
+          }
        }
-
-        return sb.toString();
+       return sb.toString();
     }
 }
