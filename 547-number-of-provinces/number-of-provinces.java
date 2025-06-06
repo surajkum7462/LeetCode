@@ -1,43 +1,55 @@
 class Solution {
-    public void dfs(int i, ArrayList<ArrayList<Integer>> ans,boolean[] vis)
+    public  void dfs(int node,ArrayList<ArrayList<Integer>> adjL,int[] vis)
     {
-        vis[i]=true;
-       
-        for(Integer it:ans.get(i))
+        vis[node]=1;
+        for(int it:adjL.get(node))
         {
-            if(vis[it]==false)
+            if(vis[it]==0)
             {
-                dfs(it,ans,vis);
+                vis[it]=1;
+                dfs(it,adjL,vis);
             }
         }
     }
     public int findCircleNum(int[][] isConnected) {
-        ArrayList<ArrayList<Integer>> ans  = new ArrayList<>();
-        for(int i=0;i<isConnected.length;i++)
+
+       
+
+     int V=isConnected.length;
+
+        ArrayList<ArrayList<Integer>> adjL = new ArrayList<>();
+        
+        for(int i=0;i<V;i++)
         {
-            ans.add(new ArrayList<>());
+            adjL.add(new ArrayList<>());
         }
-        for(int i=0;i<isConnected.length;i++)
+        
+        
+        
+        for(int i=0;i<V;i++)
         {
-            for(int j=0;j<isConnected[0].length;j++)
+            for(int j=0;j<V;j++)
             {
                 if(isConnected[i][j]==1 && i!=j)
                 {
-                  ans.get(i).add(j);
-                  ans.get(j).add(i);
+                    adjL.get(i).add(j);
+                    adjL.get(j).add(i);
                 }
             }
         }
-        boolean[] vis = new boolean[isConnected.length+1];
-        int cnt = 0;
-        for(int i=0;i<isConnected.length;i++)
+        
+        int cnt=0;
+        int[] vis = new int[V];
+        for(int i=0;i<V;i++)
         {
-            if(vis[i]==false)
+            if(vis[i]==0)
             {
-                cnt++;
-                dfs(i,ans,vis);
+                cnt++; 
+                dfs(i,adjL,vis);
             }
         }
         return cnt;
+
+        
     }
 }
