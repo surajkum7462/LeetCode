@@ -15,74 +15,22 @@
  */
 class Solution {
     public List<Integer> postorderTraversal(TreeNode root) {
-        //  List<Integer> post = new ArrayList<>();
-        // if(root==null)
-        // {
-        //     return post;
-        // }
-        
-        // post.addAll(postorderTraversal(root.left));
-       
-        // post.addAll(postorderTraversal(root.right));
-        //  post.add(root.val);
-        // return post;
-
-
-
-        // Iterative Approach
-        // List<Integer> list = new ArrayList<>();
-        // Stack<TreeNode> st1 = new Stack<>();
-        // Stack<TreeNode> st2 = new Stack<>();
-        // if(root==null)
-        // {
-        //     return list;
-        // }
-        // st1.push(root);
-        // while(!st1.isEmpty())
-        // {
-        //     TreeNode temp =st1.pop();
-        //     st2.push(temp);
-        //     if(temp.left!=null)
-        //     {
-        //         st1.push(temp.left);
-
-        //     }
-        //     if(temp.right!=null)
-        //     {
-        //         st1.push(temp.right);
-        //     }
-        // }
-        // while(!st2.isEmpty())
-        // {
-        //     list.add(st2.pop().val);
-        // }
-        // return list;
-
-        // USing 1 Stack
-
-        List<Integer> list = new ArrayList<>();
-        Stack<TreeNode> st =new Stack<>();
-        TreeNode lastVisited=null;
-        TreeNode current=root;
-        while(current!=null || !st.isEmpty())
-        {
-            while(current!=null)
-            {
-                st.push(current);
-                current=current.left;
-            }
-            current=st.peek();
-             if (current.right != null && current.right != lastVisited) {
-                current = current.right;
-             }
-            else
-            {
-                list.add(current.val);
-                st.pop();
-                lastVisited=current;
-                current=null;
-            }
-        }
+         List<Integer> list = new ArrayList<>();
+        postHelp(root,list);
         return list;
+       
     }
+    public void postHelp(TreeNode root,List<Integer> list)
+    {
+         if(root==null)
+        {
+            return;
+        }
+        
+        postHelp(root.left,list);
+        
+        postHelp(root.right,list);
+        list.add(root.val);
+    }
+    
 }
