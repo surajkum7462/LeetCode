@@ -7,69 +7,70 @@
  *     TreeNode(int x) { val = x; }
  * }
  */
+ 
 class Solution {
-    public void markParents(TreeNode root,Map<TreeNode,TreeNode> parentTrack,TreeNode target)
+    public void getParent(TreeNode root,Map<TreeNode,TreeNode> map , TreeNode target)
+ {
+    Queue<TreeNode> q = new LinkedList<>();
+    q.add(root);
+    while(!q.isEmpty())
     {
-         Queue<TreeNode> queue = new LinkedList<>();
-        queue.offer(root);
-        
-        while (!queue.isEmpty()) {
-            TreeNode current = queue.poll();
-            
-            if (current.left != null) {
-                parentTrack.put(current.left, current); // Mark parent for left child
-                queue.offer(current.left);
-            }
-            if (current.right != null) {
-                parentTrack.put(current.right, current); // Mark parent for right child
-                queue.offer(current.right);
-            }
+        TreeNode node = q.poll();
+        if(node.left!=null)
+        {
+            map.put(node.left,node);
+            q.add(node.left);
+        }
+        if(node.right!=null)
+        {
+            map.put(node.right,node);
+            q.add(node.right);
         }
     }
+ }
     public List<Integer> distanceK(TreeNode root, TreeNode target, int k) {
-        Map<TreeNode, TreeNode> parentTrack = new HashMap<>(); // To store parent pointers
-        markParents(root, parentTrack, target); // Mark parent nodes
-        
-        Map<TreeNode, Boolean> visited = new HashMap<>(); // Track visited nodes
-        Queue<TreeNode> queue = new LinkedList<>();
-        queue.offer(target);
+        Map<TreeNode, TreeNode> parent_track = new HashMap<>();
+        getParent(root, parent_track,target);
+        Map<TreeNode, Boolean> visited = new HashMap<>();
+        Queue<TreeNode> q = new LinkedList<>();
+
+        q.add(target);
         visited.put(target, true);
-        int currentLevel = 0;
-        
-        while (!queue.isEmpty()) {
-            int size = queue.size();
-            if (currentLevel == k) break; // Stop when we reach the required distance
-            currentLevel++;
-            
+
+        int current_level = 0;
+
+        while (!q.isEmpty()) {
+            int size = q.size();
+            if (current_level == k) break;
+            current_level++;
+
             for (int i = 0; i < size; i++) {
-                TreeNode current = queue.poll();
-                
-                // Traverse the left child
-                if (current.left != null && !visited.containsKey(current.left)) {
-                    queue.offer(current.left);
+                TreeNode current = q.poll();
+
+                if (current.left != null && visited.get(current.left) == null) {
+                    q.add(current.left);
                     visited.put(current.left, true);
                 }
-                
-                // Traverse the right child
-                if (current.right != null && !visited.containsKey(current.right)) {
-                    queue.offer(current.right);
+
+                if (current.right != null && visited.get(current.right) == null) {
+                    q.add(current.right);
                     visited.put(current.right, true);
                 }
-                
-                // Traverse the parent
-                if (parentTrack.containsKey(current) && !visited.containsKey(parentTrack.get(current))) {
-                    queue.offer(parentTrack.get(current));
-                    visited.put(parentTrack.get(current), true);
+
+                TreeNode parent = parent_track.get(current);
+                if (parent != null && visited.get(parent) == null) {
+                    q.add(parent);
+                    visited.put(parent, true);
                 }
             }
         }
-        
-        // Collect all nodes at distance K
-        List<Integer> result = new ArrayList<>();
-        while (!queue.isEmpty()) {
-            result.add(queue.poll().val);
+
+        List<Integer> ans = new ArrayList<>();
+        while (!q.isEmpty()) {
+            TreeNode node = q.poll();
+            ans.add(node.val);
         }
-        
-        return result;
+
+        return ans;
     }
 }
