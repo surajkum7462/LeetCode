@@ -14,17 +14,24 @@
  * }
  */
 class Solution {
-    public int count(TreeNode root)
-    {
-       
-         if (root == null) {
+    public int countNodes(TreeNode root) {
+        if(root==null)
+        {
             return 0;
         }
+        int[] arr = new int[1];
+        help(root,arr);
+        return arr[0];
         
-        return 1 + count(root.left) + count(root.right);
     }
-    public int countNodes(TreeNode root) {
-        
-        return count(root);
+    public void help(TreeNode node,int[] arr)
+    {
+        if(node==null)
+        {
+            return ;
+        }
+        help(node.left,arr);
+        arr[0]++;
+        help(node.right,arr);
     }
 }
