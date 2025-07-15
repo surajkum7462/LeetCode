@@ -15,39 +15,33 @@
  */
 class Solution {
     public TreeNode buildTree(int[] preorder, int[] inorder) {
-         // Edge case: If either array is empty, return null
-        if (preorder == null || inorder == null || preorder.length == 0 || inorder.length == 0) {
-            return null;
+        Map<Integer,Integer> inMap = new HashMap<>();
+        for(int i=0;i<inorder.length;i++)
+        {
+            inMap.put(inorder[i],i);
         }
-        return buildTreeHelper(preorder, 0, preorder.length - 1, inorder, 0, inorder.length - 1);
-    }
-
-    private TreeNode buildTreeHelper(int[] preorder, int preStart, int preEnd, 
-                                     int[] inorder, int inStart, int inEnd) {
-        // Base case: If there are no elements to construct the tree
-        if (preStart > preEnd || inStart > inEnd) {
-            return null;
-        }
-
-        // The first element of preorder is the root
-        int rootVal = preorder[preStart];
-        TreeNode root = new TreeNode(rootVal);
-
-        // Find the root in the inorder array
-        int rootIndex = inStart;
-        while (rootIndex <= inEnd && inorder[rootIndex] != rootVal) {
-            rootIndex++;
-        }
-
-        // Number of elements in the left subtree
-        int leftSize = rootIndex - inStart;
-
-        // Recursively construct the left and right subtrees
-        root.left = buildTreeHelper(preorder, preStart + 1, preStart + leftSize, 
-                                    inorder, inStart, rootIndex - 1);
-        root.right = buildTreeHelper(preorder, preStart + leftSize + 1, preEnd, 
-                                     inorder, rootIndex + 1, inEnd);
-
+        TreeNode root = buildTree(preorder,0,preorder.length-1,
+                                   inorder,0,inorder.length-1,inMap);
         return root;
+                                   
     }
+
+    public TreeNode buildTree(int[] preorder,int preStart,int preEnd,
+                               int[] inorder,int inStart,int inEnd,Map<Integer,Integer> map)
+    {
+        if(preStart>preEnd || inStart>inEnd)
+        {
+            return null;
+        }
+        TreeNode root = new TreeNode(preorder[preStart]);
+        int inRoot = map.get(root.val);
+        int numsLeft = inRoot-inStart;
+
+        root.left = buildTree(preorder, preStart+1,preEnd+numsLeft,
+                                inorder,inStart, inRoot-1,map);
+
+         root.right = buildTree(preorder, preStart+numsLeft+1,preEnd,
+                                inorder,inRoot+1, inEnd,map);
+        return root;
+    }                    
 }
