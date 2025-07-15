@@ -15,41 +15,32 @@
  */
 class Solution {
     public TreeNode buildTree(int[] inorder, int[] postorder) {
-        // Edge case: If input arrays are empty, return null
-        if (inorder == null || postorder == null || inorder.length == 0 || postorder.length == 0) {
-            return null;
+         Map<Integer,Integer> inMap = new HashMap<>();
+        for(int i=0;i<inorder.length;i++)
+        {
+            inMap.put(inorder[i],i);
         }
-        
-        // Call helper function with appropriate indices
-        return buildTreeHelper(postorder, 0, postorder.length - 1, inorder, 0, inorder.length - 1);
-    }
-
-    private static TreeNode buildTreeHelper(int[] postorder, int postStart, int postEnd,
-                                            int[] inorder, int inStart, int inEnd) {
-        // Base case: If there are no elements to construct the tree
-        if (postStart > postEnd || inStart > inEnd) {
-            return null;
-        }
-
-        // Root is the last element of the current postorder range
-        int rootValue = postorder[postEnd];
-        TreeNode root = new TreeNode(rootValue);
-
-        // Find the root index in the inorder array
-        int rootIndex = inStart;
-        while (rootIndex <= inEnd && inorder[rootIndex] != rootValue) {
-            rootIndex++;
-        }
-
-        // Number of nodes in the left subtree
-        int leftSize = rootIndex - inStart;
-
-        // Construct left and right subtrees recursively
-        root.left = buildTreeHelper(postorder, postStart, postStart + leftSize - 1,
-                                    inorder, inStart, rootIndex - 1);
-        root.right = buildTreeHelper(postorder, postStart + leftSize, postEnd - 1,
-                                     inorder, rootIndex + 1, inEnd);
-
+        TreeNode root = buildTree(inorder,0,inorder.length-1,
+                                   postorder,0,postorder.length-1,inMap);
         return root;
+        
     }
+     public TreeNode buildTree(int[] inorder,int inStart,int inEnd,
+                               int[] postorder,int poStart,int poEnd,Map<Integer,Integer> map)
+    {
+        if(inStart>inEnd || poStart>poEnd)
+        {
+            return null;
+        }
+        TreeNode root = new TreeNode(postorder[poEnd]);
+        int inRoot = map.get(root.val);
+        int numsLeft = inRoot-inStart;
+
+        root.left = buildTree(inorder, inStart,inRoot-1,
+                                postorder, poStart, poStart + numsLeft - 1,map);
+
+         root.right = buildTree(inorder, inRoot+1,inEnd,
+                                postorder,poStart + numsLeft, poEnd - 1,map);
+        return root;
+    }                    
 }
