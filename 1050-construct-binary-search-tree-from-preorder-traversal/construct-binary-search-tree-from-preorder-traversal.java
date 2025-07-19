@@ -15,15 +15,41 @@
  */
 class Solution {
     public TreeNode bstFromPreorder(int[] preorder) {
-        return bstFromPre(preorder,Integer.MAX_VALUE,new int[]{0});
-        
-    }
-    public TreeNode bstFromPre(int[] A,int bound,int[] i)
-    {
-        if(i[0]==A.length || A[i[0]]>bound) return null;
-        TreeNode root = new TreeNode(A[i[0]++]);
-        root.left=bstFromPre(A,root.val,i);
-        root.right=bstFromPre(A,bound,i);
+
+        TreeNode root = new TreeNode(preorder[0]);
+        TreeNode temp=root;
+        for(int i=1;i<preorder.length;i++)
+        {
+           insertIntoBst(root,preorder[i]);
+        }
         return root;
+    }
+
+    private void insertIntoBst(TreeNode root , int val){
+        TreeNode current = root;
+        while(true)
+        {
+            if(current.val>val)
+            {
+                if(current.left==null)
+                {
+                    current.left=new TreeNode(val);
+                    break;
+                }
+                else{
+                    current = current.left;
+                }
+            }else{
+                if(current.right==null)
+                {
+                    current.right=new TreeNode(val);
+                    break;
+                }
+                else
+                {
+                    current=current.right;
+                }
+            }
+        }
     }
 }
