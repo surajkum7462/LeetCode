@@ -14,32 +14,36 @@
  * }
  */
 class Solution {
-    List<Integer> list = new ArrayList<>();
-      public void inOrder(TreeNode root)
-      {
+    List<Integer> ans = new ArrayList<>();
+    public void inOrder(TreeNode root)
+    {
         if(root==null)
         {
             return ;
         }
         inOrder(root.left);
-        list.add(root.val);
+        ans.add(root.val);
         inOrder(root.right);
-      }
+    }
     public boolean findTarget(TreeNode root, int k) {
-
         inOrder(root);
-       int left = 0, right = list.size() - 1;
-        while (left < right) {
-            int sum = list.get(left) + list.get(right);
-            if (sum == k) {
-                return true; // Found the pair
-            } else if (sum < k) {
-                left++; // Move the left pointer forward
-            } else {
-                right--; // Move the right pointer backward
+        int l=0;
+        int r=ans.size()-1;
+        while(l<r)
+        {
+            int sum=ans.get(l)+ans.get(r);
+            if(sum==k)
+            {
+                return true;
+            }
+            else if(sum<k)
+            {
+                l++;
+            }
+            else{
+                r--;
             }
         }
-
-        return false; // No such pair exists
+        return false;
     }
 }
