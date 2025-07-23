@@ -1,28 +1,19 @@
 class Solution {
-    public int maxScore(int[] cardPoints, int k) {
-        int lSum = 0;
-        int rSum = 0;
-        int maxSum = 0;
-        int n = cardPoints.length;
-        
-        // Sum the first 'k' elements in lSum (left sum)
-        for (int i = 0; i < k; i++) {
-            lSum += cardPoints[i];
+    public int maxScore(int[] nums, int k) {
+   int n=nums.length;
+        int total=0;
+        for(int i=0;i<k;i++)
+        {
+            total+=nums[i];
         }
-         maxSum=lSum;
-        // Start the rInd from the last element of the array
-        int rInd = n - 1;
-        
-        // Iterate backwards from k-1 down to 0
-        for (int i = k - 1; i >= 0; i--) {
-            lSum -= cardPoints[i];      // Subtract the leftmost card in the window
-            rSum += cardPoints[rInd];   // Add the rightmost card
-            rInd--;                     // Move the right pointer leftwards
-            
-            // Track the maximum score after each iteration
-            maxSum = Math.max(maxSum, lSum + rSum);
+        int maxScore=total;
+
+        for(int i=1;i<=k;i++)
+        {
+            total-=nums[k-i];
+            total+=nums[n-i];
+            maxScore=Math.max(total,maxScore);
         }
-        
-        return maxSum;
+        return maxScore;
     }
 }
