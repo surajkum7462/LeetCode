@@ -1,30 +1,29 @@
 class Solution {
     public int subarraysWithKDistinct(int[] nums, int k) {
         return atMost(nums,k)-atMost(nums,k-1);
-
-        
     }
-    public int atMost(int[] arr , int k)
+
+    public int atMost(int[] nums,int k)
     {
+        Map<Integer,Integer> map = new HashMap<>();
         int l=0;
         int r=0;
-        int n=arr.length;
         int cnt=0;
-        Map<Integer,Integer> mpp = new HashMap<>();
-        while(r<n)
+        while(r<nums.length)
         {
-            mpp.put(arr[r],mpp.getOrDefault(arr[r],0)+1);
-            while(mpp.size()>k)
+            map.put(nums[r],map.getOrDefault(nums[r],0)+1);
+            while(map.size()>k)
             {
-               mpp.put(arr[l],mpp.get(arr[l])-1);
-               if(mpp.get(arr[l])==0)
-               {
-                 mpp.remove(arr[l]);
-               }
-               l++;
+                map.put(nums[l],map.get(nums[l])-1);
+                if(map.get(nums[l])==0)
+                {
+                    map.remove(nums[l]);
+                }
+                l++;
             }
+          
             cnt+=r-l+1;
-            r++;
+              r++;
         }
         return cnt;
     }
