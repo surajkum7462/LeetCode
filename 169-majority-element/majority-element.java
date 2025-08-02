@@ -1,18 +1,43 @@
 class Solution {
-    public int majorityElement(int[] nums) {
-        int n=nums.length;
-
-    Map<Integer,Integer> map = new HashMap<>();
-    for(int i=0;i<nums.length;i++)
+    public int findCondidate(int nums[])
     {
-        map.put(nums[i],map.getOrDefault(nums[i],0)+1);
-        if(map.get(nums[i])>n/2)
+        Integer condidate=null;
+        int count=0;
+        for(int num:nums)
         {
-            return nums[i];
+            if(count==0)
+            {
+               condidate=num;
+               count=1;
+            }else if(condidate==num)
+            {
+                count++;
+            }else{
+                count--;
+            }
         }
-
+        return condidate;
     }
-    return -1;
-       
+
+    public boolean isMajority(int num,int[] nums)
+    {
+        int cnt=0;
+        int n=nums.length;
+        for(int i=0;i<n;i++)
+        {
+            if(num==nums[i])
+            {
+                cnt++;
+            }
+        }
+        return cnt>n/2;
+    }
+    public int majorityElement(int[] nums) {
+      int condidate = findCondidate(nums);
+      if(isMajority(condidate,nums))
+      {
+         return condidate;
+      }
+      return -1;
     }
 }
