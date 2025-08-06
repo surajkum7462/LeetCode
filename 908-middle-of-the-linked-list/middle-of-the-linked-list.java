@@ -9,24 +9,27 @@
  * }
  */
 class Solution {
+    public int findLen(ListNode head)
+    {
+        int len=0;
+        while(head!=null)
+        {
+            len++;
+            head=head.next;
+        }
+        return len;
+    }
     public ListNode middleNode(ListNode head) {
 
-        int len=0;
-        ListNode curr = head;
-        while(curr!=null)
-        {
-            curr=curr.next;
-            len++;
-        }
-        int mid=len/2;
-        int i=0;
-        curr=head;
-        while(i<mid)
-        {
-            curr=curr.next;
-            i++;
-        }
-        return curr;
-        
+      int n=findLen(head);
+      ListNode temp = head;
+      int mid=n/2;
+      int i=0;
+      while(i<mid)
+      {
+         temp=temp.next;
+         i++;
+      }
+      return temp;
     }
 }
