@@ -18,7 +18,6 @@ public class Solution {
             st.add(temp);
             temp=temp.next;
         }
-
         temp=headB;
         while(temp!=null)
         {
@@ -28,7 +27,6 @@ public class Solution {
             }
             temp=temp.next;
         }
-
         return null;
     }
 }
