@@ -9,60 +9,62 @@
  * }
  */
 class Solution {
+
     public ListNode sortList(ListNode head) {
         if(head==null || head.next==null)
         {
             return head;
         }
+
         ListNode middle = findMiddle(head);
-        ListNode right = middle.next;
-        middle.next = null;
-        ListNode left = head;
-       right= sortList(right);
-        left=sortList(left);
-        
-        return merge(left,right);
+        ListNode leftHead = head;
+        ListNode rightHead = middle.next;
+        middle.next=null;
+        leftHead = sortList(leftHead);
+        rightHead = sortList(rightHead);
+        return merge(leftHead,rightHead);
     }
 
-    public ListNode merge(ListNode l1 , ListNode l2)
+    public ListNode merge(ListNode left ,ListNode right)
     {
-        ListNode dummy=  new ListNode(0);
+        ListNode dummy = new ListNode(0);
         ListNode temp = dummy;
-        while(l1!=null && l2!=null)
+        while(left!=null && right!=null)
         {
-            if(l1.val<=l2.val)
+            if(left.val>=right.val)
             {
-                temp.next=l1;
-                l1=l1.next;
+                temp.next=right;
+                right=right.next;
             }
             else
             {
-                temp.next=l2;
-                l2=l2.next;
+                temp.next=left;
+                left=left.next;
             }
             temp=temp.next;
         }
-        if(l1!=null)
+
+        if(left!=null)
         {
-            temp.next=l1;
+            temp.next=left;
+            
         }
-        else
-        {
-            temp.next=l2;
+        else {
+            temp.next=right;
         }
+
         return dummy.next;
     }
 
     public ListNode findMiddle(ListNode head)
     {
-        ListNode fast = head;
         ListNode slow = head;
+        ListNode fast = head;
         ListNode prev = null;
-
         while(fast!=null && fast.next!=null)
         {
             prev=slow;
-            fast = fast.next.next;
+            fast=fast.next.next;
             slow=slow.next;
         }
         return prev;
