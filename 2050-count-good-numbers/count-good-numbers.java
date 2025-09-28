@@ -1,27 +1,32 @@
 class Solution {
-    long mod=1_000_000_007;
-    public int countGoodNumbers(long n) {
-        long even=(n+1)/2;
-        long odd=n/2;
-
-        long first=pow(5,even)%mod;
-        long second=pow(4,odd)%mod;
-
-        return (int)((first*second)%mod);
-    }
-
-    public long pow(long x,long n)
+    long mod = 1_000_000_007;
+    public long power(long base  , long exp)
     {
-        long ans=1;
-       while(n>0)
-       {
-         if(n%2==1)
-         {
-            ans=(ans*x)%mod;
-         }
-         x=(x*x)%mod;
-         n=n/2;
-       }
-       return ans;
+        long ans = 1;
+
+        while(exp>0)
+        {
+            if(exp%2==1)
+            {
+                ans=(ans*base)%mod;
+                exp-=1;
+            }
+            else
+            {
+                base = (base*base)%mod;
+                exp/=2;
+            }
+        }
+        return  ans;
+    }
+    public int countGoodNumbers(long n) {
+        long evenPos = (n+1)/2;
+        long oddPos = n/2;
+
+        long pow5 = power(5,evenPos);
+        long pow4 = power(4,oddPos);
+
+        return (int) ((pow5*pow4)%mod);
+    
     }
 }
