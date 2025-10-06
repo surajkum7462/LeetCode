@@ -1,6 +1,6 @@
 class Solution {
     long mod = 1_000_000_007;
-    public long power(long base  , long exp)
+    public long generate(long base,long exp)
     {
         long ans = 1;
 
@@ -8,7 +8,7 @@ class Solution {
         {
             if(exp%2==1)
             {
-                ans=(ans*base)%mod;
+                ans = (ans*base)%mod;
                 exp-=1;
             }
             else
@@ -17,16 +17,16 @@ class Solution {
                 exp/=2;
             }
         }
-        return  ans;
+        return ans;
+
     }
     public int countGoodNumbers(long n) {
         long evenPos = (n+1)/2;
         long oddPos = n/2;
+        long pow5 = generate(5,evenPos);
+        long pow4 = generate(4,oddPos);
 
-        long pow5 = power(5,evenPos);
-        long pow4 = power(4,oddPos);
-
-        return (int) ((pow5*pow4)%mod);
+        return (int)((pow5*pow4)%mod);
     
     }
 }
