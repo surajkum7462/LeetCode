@@ -1,29 +1,32 @@
 class Solution {
     public List<List<Integer>> combinationSum(int[] candidates, int target) {
-       List<List<Integer>> ans = new ArrayList<>();
-       List<Integer> temp = new ArrayList<>();
+     List<List<Integer>> ans = new ArrayList<>();
+     List<Integer> temp = new ArrayList<>();
 
-       combinationHelp(candidates,0,ans,temp,target);
-       return ans;
+     helpCombination(candidates,0,ans,temp,target);
+     return ans;
     }
 
-    public void combinationHelp(int[] arr,int i,List<List<Integer>> ans , List<Integer> temp,int target)
+    public void helpCombination(int[] nums , int indx ,  List<List<Integer>> ans , List<Integer> temp , int target)
     {
-        if(i==arr.length)
+
+        if(indx==nums.length)
         {
             if(target==0)
             {
                 ans.add(new ArrayList<>(temp));
             }
-            return ;
+            return;
         }
 
-        if(arr[i]<=target)
+
+
+        if(nums[indx]<=target)
         {
-            temp.add(arr[i]);
-            combinationHelp(arr,i,ans,temp,target-arr[i]);
+            temp.add(nums[indx]);
+            helpCombination(nums,indx,ans,temp,target-nums[indx]);
             temp.remove(temp.size()-1);
         }
-        combinationHelp(arr,i+1,ans,temp,target);
+        helpCombination(nums,indx+1,ans,temp,target);
     }
 }
