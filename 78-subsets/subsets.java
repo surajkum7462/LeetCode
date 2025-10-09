@@ -10,7 +10,7 @@ class Solution {
 
     public void generateSubsets(int[] nums,int i,List<List<Integer>> ans , List<Integer> temp)
     {
-        if(i>=nums.length)
+        if(i==nums.length)
         {
             ans.add(new ArrayList<>(temp));
             return;
@@ -19,6 +19,6 @@ class Solution {
         temp.add(nums[i]);
         generateSubsets(nums,i+1,ans,temp);
         temp.remove(temp.size()-1);
-         generateSubsets(nums,i+1,ans,temp);
+        generateSubsets(nums,i+1,ans,temp);
     }
 }
