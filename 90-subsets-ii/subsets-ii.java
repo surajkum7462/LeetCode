@@ -1,12 +1,11 @@
 class Solution {
     public List<List<Integer>> subsetsWithDup(int[] nums) {
-        Arrays.sort(nums);
-        Set<List<Integer>> ans = new HashSet<>();
-        List<Integer> temp = new ArrayList<>();
-        int n=nums.length;
-        helpSubset(0,n,nums,ans,temp);
-       List<List<Integer>> answ = new ArrayList<>(ans);
-        return answ;
+       Arrays.sort(nums);
+       Set<List<Integer>> ans   = new HashSet<>();
+       List<Integer> temp = new ArrayList<>();
+       helpSubset(0,nums.length,nums,ans,temp);
+       List<List<Integer>> newAns = new ArrayList<>(ans);
+       return newAns;
         
     }
     public void helpSubset(int i , int n , int[] arr , Set<List<Integer>> ans , List<Integer> temp)
