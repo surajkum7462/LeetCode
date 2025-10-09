@@ -1,39 +1,49 @@
 class Solution {
-    public void helperCombine(int indx , String digits , StringBuilder sb , List<String> ans,String[] map)
+
+    public void helpCombine(int indx,String digits,String[] mapping,StringBuilder sb,List<String> ans)
     {
         if(indx==digits.length())
         {
             ans.add(sb.toString());
             return;
         }
-        String letters = map[digits.charAt(indx)-'0'];//2->"abc";again "cde"
-        for(char c:letters.toCharArray())
+
+
+
+
+        String words = mapping[digits.charAt(indx)-'0'];
+        for(char ch : words.toCharArray())
         {
-            sb.append(c);
-            helperCombine(indx+1,digits,sb,ans,map);
+            sb.append(ch);
+            helpCombine(indx+1,digits,mapping,sb,ans);
             sb.deleteCharAt(sb.length()-1);
         }
     }
-    public List<String> letterCombinations(String digits) {
-        List<String> ans = new ArrayList<>();
-        if(digits.isEmpty())
-        {
-            return ans;
-        }
-        String[] mapping ={
 
-                       "",
-                       "",
-                       "abc",
-                       "def",
-                       "ghi",
-                       "jkl",
-                       "mno",
-                       "pqrs",
-                       "tuv",
-                       "wxyz"
-        };
-        helperCombine(0,digits,new StringBuilder(),ans,mapping);
-        return ans;
+
+    
+    public List<String> letterCombinations(String digits) {
+       List<String> ans = new ArrayList<>();
+
+       if(digits.isEmpty())
+       {
+         return ans;
+       }
+
+       String[] mapping = {
+                      "",
+                      "",
+                      "abc",
+                      "def",
+                      "ghi",
+                      "jkl",
+                      "mno",
+                      "pqrs",
+                      "tuv",
+                      "wxyz"
+       };
+
+       helpCombine(0,digits,mapping,new StringBuilder(),ans);
+       return ans;
     }
 }
