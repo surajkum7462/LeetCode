@@ -25,7 +25,7 @@ class Solution {
 
       TreeNode node = root;
 
-       while(true)
+       while(!st.isEmpty() || node!=null)
        {
           if(node!=null)
           {
@@ -34,10 +34,7 @@ class Solution {
           }
           else
           {
-             if(st.isEmpty())
-             {
-                break;
-             }
+            
 
              node = st.pop();
              ans.add(node.val);
