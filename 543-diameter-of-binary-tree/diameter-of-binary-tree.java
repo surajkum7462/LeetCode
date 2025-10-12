@@ -15,27 +15,23 @@
  */
 class Solution {
     public int diameterOfBinaryTree(TreeNode root) {
-       int cnt[] = new int[1];
-      findPath(cnt,root);
-       return cnt[0];
-    }
+    int[] cnt = new int[1];
+  findDiameter(cnt,root);
+    return cnt[0];
 
-    public int findPath(int cnt[],TreeNode root )
+    }
+    
+    public int findDiameter(int[] cnt , TreeNode root)
     {
-         if(root==null)
+        if(root==null)
         {
             return 0;
         }
 
-      
-        int lh = findPath(cnt,root.left);
-        int rh = findPath(cnt,root.right);
+        int lh = findDiameter(cnt,root.left);
+        int rh = findDiameter(cnt,root.right);
 
-          cnt[0]=Math.max(cnt[0],lh+rh);
-        return 1+Math.max(lh,rh);
-        
-       
-
-
+        cnt[0]=Math.max(cnt[0],lh+rh);
+        return 1+Math.max(rh,lh);
     }
 }
