@@ -15,44 +15,43 @@
  */
 class Solution {
     public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
-        List<List<Integer>> result = new ArrayList<>();
-        if (root == null) {
-            return result;
-        }
-        
-        Queue<TreeNode> queue = new LinkedList<>();
-        queue.offer(root);
-        boolean leftToRight = true; // Direction of traversal
+      Queue<TreeNode> q = new LinkedList<>();
+      List<List<Integer>> ans = new ArrayList<>();
+      if(root==null)
+      {
+        return ans;
+      }
+      boolean leftToRight = true;
 
-        while (!queue.isEmpty()) {
-            int levelSize = queue.size();
-            List<Integer> currentLevel = new ArrayList<>(levelSize);
-
-            for (int i = 0; i < levelSize; i++) {
-                TreeNode currentNode = queue.poll();
-
-                // Add the current node's value to the list based on direction
-                if (leftToRight) {
-                    currentLevel.add(currentNode.val);
-                } else {
-                    currentLevel.add(0, currentNode.val); // Add to the front for right-to-left
-                }
-
-                // Add child nodes to the queue
-                if (currentNode.left != null) {
-                    queue.offer(currentNode.left);
-                }
-                if (currentNode.right != null) {
-                    queue.offer(currentNode.right);
-                }
+      q.offer(root);
+      while(!q.isEmpty())
+      {
+         List<Integer> temp = new ArrayList<>();
+         int n = q.size();
+         for(int i=0;i<n;i++)
+         {
+            TreeNode node = q.poll();
+            if(leftToRight)
+            {
+                temp.add(node.val);
+            }
+            else
+            {
+                temp.add(0,node.val);
+            }
+            if(node.left!=null)
+            {
+                q.offer(node.left);
+            }
+            if(node.right!= null)
+            {
+                q.offer(node.right);
             }
 
-            // Add the current level to the result
-            result.add(currentLevel);
-            // Toggle the direction for the next level
-            leftToRight = !leftToRight;
-        }
-
-        return result;
+         }
+         leftToRight=!leftToRight;
+         ans.add(temp);
+      }
+      return ans;
     }
 }
