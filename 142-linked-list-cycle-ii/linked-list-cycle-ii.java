@@ -20,10 +20,10 @@ public class Solution {
             slow = slow.next;
             if(fast==slow)
             {
-                while(ptr!=fast)
+                while(ptr!=slow)
             {
                 ptr=ptr.next;
-                fast=fast.next;
+                slow=slow.next;
             }
               return ptr;
             }
