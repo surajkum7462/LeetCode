@@ -1,7 +1,7 @@
 class Solution {
     public String frequencySort(String s) {
        StringBuilder sb  = new StringBuilder();
-       TreeMap<Character,Integer> map  = new TreeMap<>(Collections.reverseOrder());
+       TreeMap<Character,Integer> map  = new TreeMap<>();
        for(int i=0;i<s.length();i++)
        {
          char ch = s.charAt(i);
