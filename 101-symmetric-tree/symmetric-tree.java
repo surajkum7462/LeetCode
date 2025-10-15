@@ -14,7 +14,7 @@
  * }
  */
 class Solution {
-    public boolean isSymmetricHelp(TreeNode left , TreeNode right)
+    public boolean isSymmetricHelp(TreeNode left,TreeNode right)
     {
         if(left==null || right==null)
         {
@@ -22,12 +22,13 @@ class Solution {
         }
         if(left.val!=right.val)
         {
-            return false;
+           return false;
         }
         return isSymmetricHelp(left.left,right.right) && isSymmetricHelp(left.right,right.left);
     }
     public boolean isSymmetric(TreeNode root) {
-        return root==null ||  isSymmetricHelp(root.left,root.right);
+
+        return root==null || isSymmetricHelp(root.left,root.right);
         
     }
 }
