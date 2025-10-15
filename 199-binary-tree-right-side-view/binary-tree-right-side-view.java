@@ -39,6 +39,7 @@ class Solution {
             {
                 map.put(level,node.val);
             }
+            
             if(node.right!=null)
             {
                 q.add(new Pair(node.right,level+1));
@@ -47,6 +48,7 @@ class Solution {
             {
                 q.add(new Pair(node.left,level+1));
             }
+            
         }
         for(Map.Entry<Integer,Integer> entry:map.entrySet())
         {
