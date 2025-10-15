@@ -35,7 +35,7 @@ class Solution {
             Pair temp= q.poll();
             TreeNode node = temp.node;
             int level = temp.level;
-            if(!map.containsKey(level))
+            if(map.get(level)==null)
             {
                 map.put(level,node.val);
             }
