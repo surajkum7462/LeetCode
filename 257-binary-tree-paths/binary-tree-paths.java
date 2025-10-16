@@ -28,7 +28,7 @@ class Solution {
         }
 
         List<String> leftPath = binaryTreePaths(root.left);
-        List<String> rightPath = binaryTreePaths(root.right);
+        List<String> rightPath  = binaryTreePaths(root.right);
 
         for(String str : leftPath)
         {
