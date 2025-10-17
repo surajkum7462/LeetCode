@@ -13,55 +13,46 @@
  *     }
  * }
  */
- class Pair {
+ class Pair{
     TreeNode node;
-    int index;
-    
-    public Pair(TreeNode node, int index) {
+    int num;
+    public Pair(TreeNode node,int num)
+    {
         this.node = node;
-        this.index = index;
+        this.num=num;
     }
-}
-
+ }
 class Solution {
     public int widthOfBinaryTree(TreeNode root) {
-        if (root == null) {
-            return 0;
-        }
-        
-        int maxWidth = 0;
-        Queue<Pair> queue = new LinkedList<>();
-        queue.offer(new Pair(root, 0)); // Start with the root node at index 0
-        
-        while (!queue.isEmpty()) {
-            int size = queue.size();
-            int minIndex = queue.peek().index; // Minimum index at this level
-            int firstIndex = 0, lastIndex = 0;
-            
-            for (int i = 0; i < size; i++) {
-                Pair current = queue.poll();
-                int currentIndex = current.index - minIndex; // Normalize index to prevent overflow
-                TreeNode currentNode = current.node;
-                
-                if (i == 0) {
-                    firstIndex = currentIndex;
+        int ans=0;
+        Queue<Pair> q = new LinkedList<>();
+        q.add(new Pair(root,0));
+        while(!q.isEmpty())
+        {
+            int size = q.size();
+            int first=0;
+            int last=0;
+            int mmin=q.peek().num;
+            for(int i=0;i<size;i++)
+            {
+                int curr_id = q.peek().num-mmin;
+                TreeNode node = q.peek().node;
+                q.poll();
+                if(i==0) first=curr_id;
+                if(i==size-1) last = curr_id;
+                if(node.left!=null)
+                {
+                    q.add(new Pair(node.left,curr_id*2+1));
                 }
-                if (i == size - 1) {
-                    lastIndex = currentIndex;
+                if(node.right!=null)
+                {
+                    q.add(new Pair(node.right,curr_id*2+2));
                 }
-                
-                // Add children to the queue with updated indices
-                if (currentNode.left != null) {
-                    queue.offer(new Pair(currentNode.left, 2 * currentIndex + 1));
-                }
-                if (currentNode.right != null) {
-                    queue.offer(new Pair(currentNode.right, 2 * currentIndex + 2));
-                }
+
             }
-            
-            maxWidth = Math.max(maxWidth, lastIndex - firstIndex + 1);
+            ans=Math.max(ans,last-first+1);
         }
-        
-        return maxWidth;
+
+        return ans;
     }
 }
