@@ -11,11 +11,11 @@ class Solution {
             {
 
             
-            sb.append(words[i].trim());
-            if (i != 0) sb.append(" ");
+            sb.append(words[i].trim()).append(" ");
+           
             }
         }
 
-        return sb.toString();
+        return sb.toString().trim();
     }
 }
