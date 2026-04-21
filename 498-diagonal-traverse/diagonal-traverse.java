@@ -1,36 +1,32 @@
 class Solution {
     public int[] findDiagonalOrder(int[][] mat) {
-        Map<Integer,List<Integer>> map = new HashMap<>();
-        int m=mat.length;
-        int n=mat[0].length;
-        int[] ans = new int[m*n];
-        for(int i=0;i<m;i++)
+        int m = mat.length;
+        int n = mat[0].length;
+       int[] res = new int[m * n];
+        int idx = 0;
+        for(int d=0;d<m+n-1;d++)
         {
-            for(int j=0;j<n;j++)
+            List<Integer> temp = new ArrayList<>();
+            int r = (d<n)?0:d-n+1;
+
+            int c = (d<n)?d:n-1;
+
+            while(r<m && c>=0)
             {
-               int key=i+j;
-               if(!map.containsKey(key))
-               {
-                    map.put(key,new ArrayList<>());
-               }
-               map.get(key).add(mat[i][j]);
-               
+                temp.add(mat[r][c]);
+                r++;
+                c--;
             }
+
+            if(d%2==0)
+            {
+                Collections.reverse(temp);
+            }
+           for(int num : temp)
+           {
+             res[idx++]=num;
+           }
         }
-        int k=0;
-        boolean flip=true;
-        for(List<Integer> it:map.values())
-        {
-          if(flip)
-          {
-            Collections.reverse(it);
-          }
-          for(int num:it)
-          {
-            ans[k++]=num;
-          }
-          flip=!flip;
-        }
-        return ans;
+        return res;
     }
 }
